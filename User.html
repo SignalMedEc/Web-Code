@@ -1,0 +1,2213 @@
+<script>
+    currentUser = JSON.parse(sessionStorage.getItem('USUARIO'));
+    if(currentUser == null||currentUser == ''){
+        window.location = "index.html";
+    }
+</script>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+ 
+    <!-- <meta name="vieport" content="width=device-width, user-scalable=no"> -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNAL-MED</title>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="img/signal-icon.png" type="image/x-icon">
+    <!-- <link rel="stylesheet" href="css/Home-styles.css"> -->
+    <link rel="icon" href="your_address_icon" type="image/x-icon">
+    <link rel="stylesheet" href="css/StylesUser.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap" rel="stylesheet"> 
+    <!--BOOTSTRAP CDN-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- <title>Hello, world!</title> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
+    <script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   
+    
+</head>
+
+<body class="containerbody" data-bs-target="sidebar" data-bs-spy="scroll">
+    
+    <!--BOOSTRAP SCRIPTS-->
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+   
+    <header>  
+
+    <div class="d-flex">
+        <div id="sidebar" class="p-2 fixed-top active BarraCompleta">
+            <div>
+                <span class="menu-icon">
+                    <i class="bx bx-menu" id="MostrarMenuBtn" onclick="MostrarMenu()"></i> 
+                    <i class="bx bx-x" id="OcultarMenuBtn" onclick="OcultarMenu()"></i> 
+                </span>
+            </div>
+            <div>
+                <img src="img/logo.png" class="d-block w-100 classlogo">
+            </div>
+            <div id="sidebar-accordion" class="accordion">
+                <div class="list-group">
+                    
+                    <!----------------------------------- Signal---------------------------------------------->
+                    <a class="text-light border p-3 border-0">
+                        <div class="row IconosBarraLateral">
+                            <div class="col-md-1 col-sm-1">
+                                <i class="fa fa-stethoscope mr-2" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-9 col-sm-9" id="MenuLateralSignal">
+                                <p >
+                                    <h5>SIGNAL - MED</h5>
+                                    <h6>Más cerca de ti...</h6>
+                                </p> 
+                            </div> 
+                        </div>
+                    </a>
+                    <!----------------------------------- Bienvenida---------------------------------------------->
+                    <a id="LeyendaBienvenida" class="text-light border rounded p-3 MenuBarraLateralBienvenida">  
+                        <p id="userlink"></p> 
+                    </a>
+                   
+                    <!------------------------------- Ingreso de nuevo Usuario -------------------------------------->
+                    <a id="IngNewUser" href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+                        class="p-3 list-group-item-action text-light border-0" onclick="MostrarIng()">
+                        <div class="row IconosBarraLateral">
+                            <div class="col-md-1 col-sm-1">
+                                <div class="rectangulo2"></div>
+                                <i class="fa fa-address-book dbicon" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-9 col-sm-9 MenuBarraLateral">
+                                <p id="MenuLateralIng">Ingreso de Nuevo Usuario</p> 
+                            </div> 
+                        </div>
+                    </a>
+
+                    <!------------------------------------- Lista de Usuarios --------------------------------------->
+                    <a id="Med-Users" href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+                        class="p-3 list-group-item-action text-light border-0" onclick="MostrarUseres()">
+                         <!-- class="p-3 list-group-item-action bg-danger text-light ListaUsuarios border-0" onclick="MostrarUseres()"> -->
+                        <div class="row IconosBarraLateral">
+                            <div class="col-md-1 col-sm-1">
+                                <div class="rectangulo2"></div>
+                                <i class="fa fa-users mr-2 dbicon" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-9 col-sm-9 MenuBarraLateral">
+                                <p id="MenuLateralUsers">Usuarios</p> 
+                            </div> 
+                        </div>
+                    </a>                                
+
+                    <!---------------------------------- Historial de mediciones Usuario-------------------------------->
+                    <a id="Historial" href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+                        class="p-3 list-group-item-action text-light border-0" onclick="MostrarHistorialUser()">
+                        <div class="row IconosBarraLateral">
+                            <div class="col-md-1 col-sm-1">
+                                <div class="rectangulo2"></div>
+                                <i class="bx bx-spreadsheet mr-2 dbicon" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-9 col-sm-9 MenuBarraLateral">
+                                <p id="MenuLateralMedicionesUsuarios">Historial de mediciones</p> 
+                            </div> 
+                        </div>
+                    </a>
+
+                    <!---------------------------------- Toma de mediciones -------------------------------------->
+                    <a id="mediciones" href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+                        class="p-3 list-group-item-action text-light MedUser border-0" onclick="Mostrar_med()">
+                        <div class="row IconosBarraLateral">
+                            <div class="col-md-1 col-sm-1">
+                                <div class="rectangulo2"></div>
+                                <i class='bx bxs-tachometer mr-2 dbicon'></i>
+                            </div>
+                            <div class="col-md-9 col-sm-9 MenuBarraLateral">
+                                <p id="MenuLateralRealizarMedicion">Realizar medición</p> 
+                            </div> 
+                        </div>
+                    </a>
+                    <!---------------------------------- Cerrar Sesion -------------------------------------->
+                    <a id="Sesion" href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+                        class="p-3 list-group-item-action text-light border-0" onclick="Signout()">
+                        <div class="row IconosBarraLateral">
+                            <div class="col-md-1 col-sm-1">
+                                <div class="rectangulo2"></div>
+                                <i class="fas fa-sign-out-alt dbicon"></i>
+                            </div>
+                            <div class="col-md-9 col-sm-9 MenuBarraLateral">
+                                <p id="MenuLateralCerrarSesion">Cerrar Sesión</p> 
+                            </div> 
+                        </div>
+                    </a>
+                </div>
+            </div>  
+        </div>
+
+        <div id="cnbody" class="content w-100 active">
+  
+            <!-----------------------------------SECCIÓN BIENVENIDA ------------------------------------------>
+            <section id="MED-Bienvenida" class="p-3">
+                <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>BIENVENIDO</h2>
+                    </div>
+                </div>
+                </div>
+                
+            </section>
+
+            <!-----------------------------------SECCIÓN INGRESO USUARIO NUEVO ------------------------------------------>
+                <section id="MED-IngNewUser" class="p-3">
+                <div class="overflow-auto">
+                    <div class="container">
+                        <div class="col-md-12 ">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h5><b>INGRESO DE NUEVO USUARIO</b></h5>
+                                    <hr class="Titulos">
+                                </div>                               
+                                <div class="x_content">
+                                    <br />
+                                    <form class="form-horizontal form-label-left">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4 col-sm-4 ">Fecha de ingreso: <span class="required">*</span></label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input class="date-picker form-control" id="Inboxfc" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                                                <script>
+                                                    function timeFunctionLong(input) {
+                                                        setTimeout(function() {
+                                                            input.type = 'text';
+                                                        }, 60000);
+                                                    }
+                                                </script>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label class="control-label col-md-4 col-sm-4">Cédula:<span class="required">*</span></label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input type="text" id="Cedboxfc" class="form-control" placeholder="Ingresa solo números">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Apellido:<span class="required">*</span></label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input id="Apboxfc" type="text" class="form-control" placeholder="Apellido paterno">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Nombre:<span class="required">*</span></label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input id="Nomboxfc" type="text" class="form-control" placeholder="Primer nombre">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Celular:<span class="required">*</span></label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input id="Celboxfc" type="text" class="form-control"  placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Telf. Convencional:</label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input id="Telboxfc" type="text" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4 col-sm-4 ">Fecha de nacimiento: <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input id="Bornboxfc" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                                                <script>
+                                                    function timeFunctionLong(input) {
+                                                        setTimeout(function() {
+                                                            input.type = 'text';
+                                                        }, 60000);
+                                                    }
+                                                </script>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Edad:<span class="required">*</span></label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input id="Edboxfc" type="text" class="form-control" placeholder="Años cumplidos">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Domicilio:</label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <textarea id="Domboxfc" class="form-control" rows="3" placeholder="Provincia, ciudad,..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Género:<span class="required">*</span></label>
+                                            <div class="gender col-md-8 col-sm-8 ">
+                                                <select id="Genboxfc">
+                                                    <option value="Masculino">Masculino</option>
+                                                    <option value="Femenino">Femenino</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Correo:</label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input id="Corrboxfc" type="text" class="form-control" placeholder="Ingrese un correo válido">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Usuario:<span class="required">*</span></label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input id="Userboxfc" type="text" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Contraseña:<span class="required">*</span></label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <input id="Contboxfc" type="text" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Enfermedades Preexistentes: <span class="required"></span>
+                                            </label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <textarea id="Enfboxfc" class="form-control" rows="3" placeholder=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="control-label col-md-4 col-sm-4 ">Observaciones: <span class="required"></span>
+                                            </label>
+                                            <div class="col-md-8 col-sm-8 ">
+                                                <textarea id="Obsboxfc" class="form-control" rows="3" placeholder=""></textarea>
+                                            </div>
+                                        </div>                          
+                                    </form>
+                                </div>
+                            </div>
+                            <hr class="Titulos">
+                            <button class="btn bg-danger text-light" id="Insbtnfc">REGISTRAR</button>
+                        </div>
+                    </div>
+                </div>
+                </section>
+
+                <!-----------------------------------SECCIÓN USUARIOS----------------------------------------->
+                <section id="MED-Med-Users" class="p-3">
+             
+                    <div class="overflow-auto">  
+                        <div class="col-md-12 col-sm-12" >                          
+                                <div class="row">
+                                    <div class="x_title">
+                                        <h5><b>USUARIOS</b></h5>
+                                        <hr class="Titulos">
+                                    </div>
+                                </div>                      
+                            <div class="container mt-3" id="UserTableDates">
+                                <table class="table UserTable" >
+                                    <thead>
+                                        <th>USUARIO</th>
+                                        <th>CEDULA</th>
+                                        <th>NOMBRE</th>
+                                        <th>APELLIDO</th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody id="tbody3"></tbody>
+                                </table>
+                            </div> 
+                        </div>                                                          
+                    </div>  
+                           
+                </section>
+                                                    <!-------------------SECCIÓN USUARIOS (INICIAL)------------------->
+                <section id="MED-PrintUserI" class="p-3">
+                    <div class="row">
+                        <div>        
+                            <button class="btn bg-danger text-light AtrasBtn" onclick="MostrarUseres()"><i class="fa fa-arrow-circle-left" aria-hidden="true" onclick="MostrarUseres()"></i></button>
+                        </div>
+                    </div>
+                <div class="container">
+                    
+                    
+                                                <!-- -------------- Seccion Datos y graficas ---------------- -->                    
+                    <div class="row" id="CuerpodePerfildeUsuario">                        
+                            <div class="col-md-4 col-sm-4">        
+                                <div class="x_title">
+                                    <h5><b>USUARIO</b></h5>
+                                    <hr class="Titulos">
+                                </div> 
+
+                                <div class="row">
+                                    <p id="UserNamePrint"></p>
+                                </div>
+                                <div class="row  border rounded">
+                                    <p id="ValoresNormalesPrint"></p>
+                                </div> 
+
+                            </div>                           
+                            <div class="col-md-8 col-sm-8 ">                      
+                                <div class="x_title">
+                                    <h5><b>GRÁFICAS</b></h5>
+                                    <hr class="Titulos">
+                                </div>   
+                                <div id="NavMenu">
+                                    <ul class="nav nav-tabs TextGraficas">
+                                        <li class="nav-item">
+                                            <a class="nav-link active border rounded" id="BtnGraficoOxi" role="tab" data-toggle="tab" href="#GraficoOxi"><b>Oxigenación (%)</b></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link border rounded" id="BtnGraficoPulso" role="tab" data-toggle="tab" href="#GraficoPulso"><b>Pulso (Bpm)</b></a>
+                                        </li>                                       
+                                    </ul>
+                                    <hr class="Titulos">
+                                </div>
+                                <div class="overflow-auto">
+                                    <div class="tab-content" id="GraficosMed">
+                                        <div role="tabpanel" class="tab-pane active" id="GraficoOxi"></div>
+                                        <div role="tabpanel" class="tab-pane" id="GraficoPulso"></div>
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                    </div>                        
+               
+                                                                                <!-- ---------------- Barra Menu Horizontal ------------------- -->
+                    <div class="row" id="CuerpoDeDatosdelUsuario">
+                        <div class="x_panel">
+                            <div class="col-md-12 col-sm-12">
+                                <div id="NavMenu">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active border rounded" id="BtnDatosUsuario" role="tab" data-toggle="tab" href="#DatosdeUsuario"><b>Perfil</b></a>                                            
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link border rounded" id="BtnHistorial" role="tab" data-toggle="tab" href="#HistorialdeUsuario"><b>Historial</b></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link border rounded RealizarMedicionUsuario" id="BtnMedicionSignos" role="tab" data-toggle="tab" href="#MedicionSignosUsuario"><b>Realizar medición</b></a>
+                                        </li>                                        
+                                    </ul>
+                                    <hr class="Titulos">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="tab-content">
+                                                                            <!-- -----------------------Perfil Usuario--------------------------- -->
+                            <div role="tabpanel" class="tab-pane active" id="DatosdeUsuario">
+                                <div class="container">
+                                    <div class="col-md-12 ">
+                                        <div class="x_panel">
+                                            <form id="UserPerfilForm">
+                                                <div class="x_content">
+                                                    <form class="form-horizontal form-label-left">
+                                                        <div class="form-group row ">
+                                                            <label class="control-label col-md-4 col-sm-4"><b>Usuario:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="userprintp"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Fecha de ingreso:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="ingprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row ">
+                                                            <label class="control-label col-md-4 col-sm-4"><b>Cédula:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="cedprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Apellido:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="apeprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Nombre:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="nomprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Celular:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="celprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Telf. Convencional:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="telfprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Fecha de nacimiento:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="bornprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Edad:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="edadprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Domicilio:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="domprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Género:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="genprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Correo:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="emailprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Contraseña:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="passprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Enfermedades Preexistentes:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="enfprint"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-4 col-sm-4 "><b>Observaciones:</b></label>
+                                                            <div class="datesprint col-md-8 col-sm-8 ">
+                                                                <p id="obsprint"></p>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </form>
+                                            <hr class="Titulos">                                      
+                                            <button class="btn bg-danger text-light" id="Modbtnfc">ACTUALIZAR DATOS</button>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                                                                <!-- -------------------HISTORIAL---------------- -->
+                            <div  role="tabpanel" class="tab-pane" id="HistorialdeUsuario">  
+                                <div class="overflow-auto">  
+                                    <div class="x_panel">
+                                        <div class="container mt-3" id="SignosUsuario">
+                                            <table class="table UserTable">
+                                                <thead>
+                                                    <th>FECHA</th>
+                                                    <th>TEMPERATURA (°C)</th>
+                                                    <th>OXIMETRIA (%)</th>
+                                                    <th>Presión Arterial (mmHg)</th>
+                                                    <th>PULSO (bpm)</th>
+                                                </thead>
+                                                <tbody id="tbody2"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                                                                        <!-- -----------------Medicion de Signos de Usuario -------------------------- -->
+                            <div role="tabpanel" class="tab-pane" id="MedicionSignosUsuario">
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="s_icon_conexion">
+                                        <i class='bx bx-station' id="IconConexionAdmin"></i>
+                                        <div class="datesprint">
+                                            <p id="IconConexionAdminText"></p>
+                                        </div>                              
+                                    </div> 
+                                </div>                                
+                                <div class="x_panel">
+                                    <div class="row">
+                                        <div class="col-md-6" textaling="center">
+                                            <div class="textspo2bpm">Pulso Cardíaco</div>
+                                            <hr class="Titulos">               
+                                                <div class="container">
+                                                    <div id="Incbarrabpm" class="barratemp">
+                                                        <div class="cont" style="background-color: #ffe5db;"></div>
+                                                        <div class="cont" style="background-color: #fa6a3a;"></div>
+                                                    </div>
+                                                    <div id="circulo_centrobpm" class="circulo_centro"></div>
+                                                    <div class="rectangulo">
+                                                        <div class='sensorsmed'>                           
+                                                            <p class='sensor'>                            
+                                                                <div class="datesprintFB col-md-9 col-sm-9 ">
+                                                                    <p id="Pulso_Fire"></p>
+                                                                </div>                                        
+                                                                <sup class='units'>BPM</sup>
+                                                            </p>
+                                                        </div>
+                                                        <div class="s_icon">
+                                                            <i class='fas fa-heartbeat' style='color:#fa6a3a'></i>
+                                                        </div>
+                                                        <div class="ValoresMed">
+                                                            <p id="Bpm0">0</p>
+                                                            <p id="Bpm45">40</p>
+                                                            <p id="Bpm90">80</p>
+                                                            <p id="Bpm135">120</p>
+                                                            <p id="Bpm180">160</p>
+                                                        </div>
+                                                        <div class="LineasValoresMed">
+                                                            <p id="BpmL0">_</p>
+                                                            <p id="BpmL45">_</p>
+                                                            <p id="BpmL90">_</p>
+                                                            <p id="BpmL135">_</p>
+                                                            <p id="BpmL180">_</p>
+                                                        </div> 
+                                                    </div>                                                   
+                                                </div>
+                                        </div>
+            
+                                        <div class="col-md-6">
+                                            <div class="textspo2bpm">Oxigenación</div>
+                                            <hr class="Titulos">
+                                                <div class="container">
+                                                    <div id="Incbarraspo2" class="barratemp">
+                                                        <div class="cont" style="background-color: rgb(199, 255, 191);"></div>
+                                                        <div class="cont" style="background-color: rgb(30, 253, 0);"></div>
+                                                    </div>
+                                                    <div id="circulo_centrospo2" class="circulo_centro">                                 
+                                                    </div>
+                                                    <div class="rectangulo">
+                                                        <div class='sensorsmed'>
+                                                            <p class='sensor'>
+                                                                <div class="datesprintFB col-md-9 col-sm-9 ">
+                                                                    <p id="Oxi_Fire"></p>
+                                                                </div>
+                                                            <sup class='unitsP'>%</sup>
+                                                            </p>
+                                                        </div> 
+                                                        <div class="s_icon">
+                                                            <i class='fas fa-burn' style='color:rgb(30, 253, 0)'></i>
+                                                        </div>
+                                                        <div class="ValoresMed">
+                                                            <p id="Sp0">0</p>
+                                                            <p id="Sp45">30</p>
+                                                            <p id="Sp90">60</p>
+                                                            <p id="Sp135">90</p>
+                                                            <p id="Sp180">120</p>
+                                                        </div>
+                                                        <div class="LineasValoresMed">
+                                                            <p id="SpL0">_</p>
+                                                            <p id="SpL45">_</p>
+                                                            <p id="SpL90">_</p>
+                                                            <p id="SpL135">_</p>
+                                                            <p id="SpL180">_</p>
+                                                    </div>                                                  
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>                               
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+                </section>                
+                                                <!---SECCIÓN USUARIOS (PERFIL: ACTUALIZAR DATOS)------------------->
+                <section id="MED-Updateuser" class="p-3">
+                    <div class="row">
+                        <div>                              
+                            <button class="btn bg-danger text-light AtrasBtn" onclick="ImprimirPerfilUsuarioIniAdmin()"><i class="fa fa-arrow-circle-left" aria-hidden="true" onclick="MostrarUseres()"></i></button>
+                        </div>
+                    </div>
+                    <div class="container">                        
+                        <div class="container">
+                            <div class="col-md-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h5><b>ACTUALIZAR DATOS DE USUARIO</b></h5>
+                                        <hr class="Titulos">
+                                    </div>
+                                    <form id="UpdateuserForm">
+                                        <div class="x_content">
+                                            <br />
+                                            <form class="form-horizontal form-label-left">
+                                                <div class="form-group row ">
+                                                    <label class="control-label col-md-4 col-sm-4">Usuario:</label>
+                                                    <div class="datesprint col-md-8 col-sm-8 ">
+                                                        <p id="userprint"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-4 col-sm-4 ">Fecha de ingreso:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input class="date-picker form-control" id="Inboxfc1" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                                                        <script>
+                                                            function timeFunctionLong(input) {
+                                                                setTimeout(function() {
+                                                                    input.type = 'text';
+                                                                }, 60000);
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row ">
+                                                    <label class="control-label col-md-4 col-sm-4">Cédula:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input type="text" id="Cedboxfc1" class="form-control" placeholder="Ingresa solo números">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Apellido:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input id="Apboxfc1" type="text" class="form-control" placeholder="Apellido paterno">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Nombre:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input id="Nomboxfc1" type="text" class="form-control" placeholder="Primer nombre">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Celular:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input id="Celboxfc1" type="text" class="form-control"  placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Telf. Convencional:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input id="Telboxfc1" type="text" class="form-control" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-4 col-sm-4 ">Fecha de nacimiento:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input id="Bornboxfc1" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                                                        <script>
+                                                            function timeFunctionLong(input) {
+                                                                setTimeout(function() {
+                                                                    input.type = 'text';
+                                                                }, 60000);
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Edad:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input id="Edboxfc1" type="text" class="form-control" placeholder="Años cumplidos">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Domicilio:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <textarea id="Domboxfc1" class="form-control" rows="3" placeholder="Provincia, ciudad,..."></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Género:</label>
+                                                    <div class="gender col-md-8 col-sm-8 ">
+                                                        <select id="Genboxfc1">
+                                                            <option value="Masculino">Masculino</option>
+                                                            <option value="Femenino">Femenino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Correo:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input id="Corrboxfc1" type="text" class="form-control" placeholder="Ingrese un correo válido">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Contraseña:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <input id="Contboxfc1" type="text" class="form-control" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Enfermedades Preexistentes:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <textarea id="Enfboxfc1" class="form-control" rows="3" placeholder=""></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="control-label col-md-4 col-sm-4 ">Observaciones:</label>
+                                                    <div class="col-md-8 col-sm-8 ">
+                                                        <textarea id="Obsboxfc1" class="form-control" rows="3" placeholder=""></textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </form>
+                                    <hr class="Titulos">                                   
+                                    <button class="btn bg-danger text-light" id="Updbtnfc">GUARDAR CAMBIOS</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-----------------------------------SECCIÓN HISTORIAL (TABLA USUARIOS)----------------------------------->
+
+                <section id="MED-Historial" class="p-3">
+                    <div class="overflow-auto">
+                        <div class="x_panel">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="x_title">
+                                        <h5><b>HISTORIAL</b></h5>
+                                        <hr class="Titulos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container mt-3" id="SignosUsuario">
+                                <table class="table UserTable">
+                                    <thead>
+                                        <th>Fecha</th>
+                                        <th>Temperatura (°C)</th>
+                                        <th>Oximetría</th>
+                                        <th>Presión Arterial (mmHg)</th>
+                                        <th>Pulso Arterial</th>
+                                    </thead>
+                                    <tbody id="tbody1"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>                  
+                </section>        
+
+                <!-----------------------------------SECCIÓN REALIZAR MEDICIÓN ------------------------------------------>
+                                    
+                <section id="MED-mediciones" class="p-3">
+                    <div class="overflow-auto">
+                    <div class="x_panel">
+                    <div class="container">
+                        <div class="container">
+                            
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="s_icon_conexion"></div> 
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="s_icon_conexion">
+                                        <button class="btn bg-danger text-light" id="Medbtnfc">GUARDAR MEDICION</button>
+                                    </div> 
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="s_icon_conexion">
+                                        <i class='bx bx-station' id="IconConexion"></i>
+                                        <div class="datesprint">
+                                            <p id="IconConexionText"></p>
+                                        </div>                              
+                                    </div> 
+                                </div>
+                                                          
+                            </div>
+                            <!-- <hr class="Titulos">  -->
+
+                            <div class="row">  
+                                                   
+                                    <div class="col-md-6 col-sm-6" textaling="center">
+                                        <div class="textspo2bpm">Pulso Cardíaco</div>
+                                        <hr class="Titulos">              
+                                            <div class="container">
+                                                <div id="IncbarrabpmU" class="barratemp">
+                                                    <div class="cont" style="background-color: #ffe5db;"></div>
+                                                    <div class="cont" style="background-color: #fa6a3a;"></div>
+                                                </div>
+                                                <div id="circulo_centrobpm" class="circulo_centro"></div>
+                                                <div class="rectangulo">
+                                                    <div class='sensorsmed'>                           
+                                                        <p class='sensor'>                            
+                                                            <div class="datesprintFB col-md-9 col-sm-9 ">
+                                                                <p id="Pulso_FireU"></p>
+                                                            </div>                                        
+                                                            <sup class='units'>BPM</sup>
+                                                        </p>
+                                                    </div>
+                                                    <div class="s_icon">
+                                                        <i class='fas fa-heartbeat' style='color:#fa6a3a'></i>
+                                                    </div>
+                                                    <div class="ValoresMed">
+                                                        <p id="Bpm0">0</p>
+                                                        <p id="Bpm45">40</p> 
+                                                        <p id="Bpm90">80</p>
+                                                        <p id="Bpm135">120</p>
+                                                        <p id="Bpm180">160</p>
+                                                    </div>
+                                                    <div class="LineasValoresMed">
+                                                        <p id="BpmL0">_</p>
+                                                        <p id="BpmL45">_</p>
+                                                        <p id="BpmL90">_</p>
+                                                        <p id="BpmL135">_</p>
+                                                        <p id="BpmL180">_</p>
+                                                    </div>    
+                                                </div>                                       
+                                            </div>
+                                    </div>
+        
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="textspo2bpm">Oxigenación</div>
+                                        <hr class="Titulos">
+                                            <div class="container">
+                                                <div id="Incbarraspo2U" class="barratemp">
+                                                    <div class="cont" style="background-color: rgb(199, 255, 191);"></div>
+                                                    <div class="cont" style="background-color: rgb(30, 253, 0);"></div>
+                                                </div>
+                                                <div id="circulo_centrospo2" class="circulo_centro">                                 
+                                                </div>
+                                                <div class="rectangulo">
+                                                    <div class='sensorsmed'>
+                                                        <p class='sensor'>
+                                                            <div class="datesprintFB col-md-9 col-sm-9 ">
+                                                                <p id="Oxi_FireU"></p>
+                                                            </div>
+                                                        <sup class='unitsP'>%</sup>
+                                                        </p>
+                                                    </div> 
+                                                    <div class="s_icon">
+                                                        <i class='fas fa-burn' style='color:rgb(30, 253, 0)'></i>
+                                                    </div>
+                                                    <div class="ValoresMed">
+                                                        <p id="Sp0">0</p>
+                                                        <p id="Sp45">30</p>
+                                                        <p id="Sp90">60</p>
+                                                        <p id="Sp135">90</p>
+                                                        <p id="Sp180">120</p>
+                                                    </div>
+                                                    <div class="LineasValoresMed">
+                                                        <p id="SpL0">_</p>
+                                                        <p id="SpL45">_</p>
+                                                        <p id="SpL90">_</p>
+                                                        <p id="SpL135">_</p>
+                                                        <p id="SpL180">_</p>
+                                                    </div> 
+                                                </div>                                          
+                                            </div>
+                                    </div>
+                       
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 border rounded p-3 LeyendaSignosMedicion">                                    
+                                    <div class="row IconosSignosMedicion">
+                                        <div class="col-md-1 col-sm-1">
+                                            <div class="rectangulo2"></div>
+                                            <i class="fas fa-heartbeat mr-2 dbicon" aria-hidden="true" style='color:#fa6a3a'></i>                                  
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 ValoresSignosMedicion">
+                                            <p>Pulso cardíaco: Es el número de latidos cardíacos por minuto.</p> 
+                                        </div> 
+                                    </div>
+                                    <div class="row IconosSignosMedicion">
+                                        <div class="col-md-1 col-sm-1">
+                                            <div class="rectangulo2"></div>
+                                            <i class="fa fa-check mr-2 dbicon" aria-hidden="true" style='color:rgb(30, 253, 0)'></i>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 ValoresSignosMedicion">
+                                            <p>Valores normales: oscilan entre 60 y 85 bpm.</p> 
+                                        </div> 
+                                    </div>
+                                    <div class="row IconosSignosMedicion">
+                                        <div class="col-md-1 col-sm-1">
+                                            <div class="rectangulo2"></div>
+                                            <i class="bx bx-error mr-2 dbicon" aria-hidden="true" style='color:rgb(255, 174, 0)'></i>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 ValoresSignosMedicion">
+                                            <p>Variaciones: taquicardia: > 90 bpm, y bradicardia: < 50 bpm.</p> 
+                                        </div> 
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 border rounded p-3 LeyendaSignosMedicion">                                    
+                                    <div class="row IconosSignosMedicion">
+                                        <div class="col-md-1 col-sm-1">
+                                            <div class="rectangulo2"></div>
+                                            <i class="fas fa-burn mr-2 dbicon" aria-hidden="true" style='color:rgb(30, 253, 0)'></i>                                  
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 ValoresSignosMedicion">
+                                            <p>Oximetría: Mide la cantidad de oxígeno en la sangre.</p> 
+                                        </div> 
+                                    </div>
+                                    <div class="row IconosSignosMedicion">
+                                        <div class="col-md-1 col-sm-1">
+                                            <div class="rectangulo2"></div>
+                                            <i class="fa fa-check mr-2 dbicon" aria-hidden="true" style='color:rgb(30, 253, 0)'></i>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 ValoresSignosMedicion">
+                                            <p>Valores normales: oscilan entre 95 y 100 %.</p> 
+                                        </div> 
+                                    </div>
+                                    <div class="row IconosSignosMedicion">
+                                        <div class="col-md-1 col-sm-1">
+                                            <div class="rectangulo2"></div>
+                                            <i class="bx bx-error mr-2 dbicon" aria-hidden="true" style='color:rgb(255, 174, 0)'></i>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 ValoresSignosMedicion">
+                                            <p>Variaciones: Cuando un individuo tiene problemas respiratorios debidos a patologías pulmonares, cardíacas o neurológicas, este porcentaje desciende, con valores < 95%.</p> 
+                                        </div> 
+                                    </div>
+                                </div>
+                                
+
+                            </div>                            
+                        </div>
+                    </div>                                         
+                     
+                    </div>
+                    </div>
+                </section>
+
+                <section id="IGNORARSECCION">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                            <h3>Recuerda seguir las recomendaciones de tu médico</h3>
+    
+                            <form id="SignosVitales">
+                                <label>Temperatura:</label> <input id="Tempboxfc" placeholder="" type="text"> <br><br>
+                                <label>Oximetría:</label> <input id="Oxiboxfc" placeholder="" type="text"> <br><br>
+                                <label>Presión:</label> <input id="Presboxfc" placeholder="" type="text"> <br><br>
+                                <label>Pulso:</label> <input id="Pulsboxfc" placeholder="" type="text"> <br><br>
+                            </form>                            
+                            <button class="btn bg-primary text-light" id="NewMedbtnfc">NUEVA MEDICION</button>
+                        
+                            </div>
+                        </div>
+                    </div> 
+                        
+                </section>
+                
+
+        </div>
+    </div>
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+
+    <script>
+
+        function OcultarMenu(){
+            document.getElementById("MenuLateralSignal").style.display='none';
+            document.getElementById("LeyendaBienvenida").style.display='none';
+            //document.getElementById("MenuLateralMiPerfil").style.display='none';
+            document.getElementById("MenuLateralIng").style.display='none';
+            document.getElementById("MenuLateralUsers").style.display='none';
+            document.getElementById("MenuLateralMedicionesUsuarios").style.display='none';
+            document.getElementById("MenuLateralRealizarMedicion").style.display='none';
+            document.getElementById("MenuLateralCerrarSesion").style.display='none';
+            document.getElementById("OcultarMenuBtn").style.display='none';
+            document.getElementById("MostrarMenuBtn").style.display='block';           
+        }
+
+        function MostrarMenu(){
+            document.getElementById("MenuLateralSignal").style.display='block';
+            document.getElementById("LeyendaBienvenida").style.display='block';
+            //document.getElementById("MenuLateralMiPerfil").style.display='block';
+            document.getElementById("MenuLateralIng").style.display='block';
+            document.getElementById("MenuLateralUsers").style.display='block';
+            document.getElementById("MenuLateralMedicionesUsuarios").style.display='block';
+            document.getElementById("MenuLateralRealizarMedicion").style.display='block';
+            document.getElementById("MenuLateralCerrarSesion").style.display='block';
+            document.getElementById("OcultarMenuBtn").style.display='block';
+            document.getElementById("MostrarMenuBtn").style.display='none';
+        }
+        
+        // -------------------------------- Funcion para ocultar barra lateral -------------------------------
+        let btnToggle = document.querySelector(".menu-icon");
+        btnToggle.addEventListener('click',function(){
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("cnbody").classList.toggle("active");
+        })  
+                   
+        function MostrarIng(){
+            document.getElementById("MED-IngNewUser").style.display='block';
+            //document.getElementById("MED-MiPerfil").style.display='none';
+            document.getElementById("MED-Med-Users").style.display='none';             
+            document.getElementById("MED-PrintUserI").style.display='none';
+            document.getElementById("MED-Updateuser").style.display='none';
+            document.getElementById("MED-Historial").style.display='none';
+            document.getElementById("MED-mediciones").style.display='none';
+            document.getElementById("MED-Bienvenida").style.display='none'; 
+            document.getElementById("IGNORARSECCION").style.display='none';
+        }
+
+        function MostrarUseres(){
+            document.getElementById("MED-Med-Users").style.display='block';
+            //document.getElementById("MED-MiPerfil").style.display='none';
+            document.getElementById("MED-IngNewUser").style.display='none';            
+            document.getElementById("MED-PrintUserI").style.display='none';
+            document.getElementById("MED-Updateuser").style.display='none';
+            document.getElementById("MED-Historial").style.display='none';
+            document.getElementById("MED-mediciones").style.display='none';
+            document.getElementById("MED-Bienvenida").style.display='none'; 
+            document.getElementById("IGNORARSECCION").style.display='none';
+        }
+        function ImprimirPerfilUsuarioIniAdmin(){
+            document.getElementById("MED-PrintUserI").style.display='block';
+            document.getElementById("MED-Updateuser").style.display='none';
+            document.getElementById("MED-Med-Users").style.display='none';
+            //document.getElementById("MED-MiPerfil").style.display='none';
+            document.getElementById("MED-IngNewUser").style.display='none';            
+            document.getElementById("MED-Historial").style.display='none';
+            document.getElementById("MED-mediciones").style.display='none';
+            document.getElementById("MED-Bienvenida").style.display='none'; 
+            document.getElementById("IGNORARSECCION").style.display='none';
+        }
+
+        function MostrarPerfilAdmin(){
+            document.getElementById("MED-Updateuser").style.display='block';
+            document.getElementById("MED-Med-Users").style.display='none';
+            //document.getElementById("MED-MiPerfil").style.display='none';
+            document.getElementById("MED-IngNewUser").style.display='none';            
+            document.getElementById("MED-PrintUserI").style.display='none';
+            document.getElementById("MED-Historial").style.display='none';
+            document.getElementById("MED-mediciones").style.display='none';
+            document.getElementById("MED-Bienvenida").style.display='none'; 
+            document.getElementById("IGNORARSECCION").style.display='none';
+        }
+
+        function MostrarHistorialUser(){
+            document.getElementById("MED-Historial").style.display='block';
+            document.getElementById("MED-Updateuser").style.display='none';            
+            document.getElementById("MED-PrintUserI").style.display='none';
+            //document.getElementById("MED-MiPerfil").style.display='none';
+            document.getElementById("MED-IngNewUser").style.display='none';
+            document.getElementById("MED-Med-Users").style.display='none'; 
+            document.getElementById("MED-mediciones").style.display='none';
+            document.getElementById("MED-Bienvenida").style.display='none'; 
+            document.getElementById("IGNORARSECCION").style.display='none';
+        }
+
+        function Mostrar_med(){
+            document.getElementById("MED-mediciones").style.display='block';
+            //document.getElementById("MED-MiPerfil").style.display='none';
+            document.getElementById("MED-IngNewUser").style.display='none';
+            document.getElementById("MED-Med-Users").style.display='none'; 
+            document.getElementById("MED-PrintUserI").style.display='none';     
+            document.getElementById("MED-Updateuser").style.display='none';
+            document.getElementById("MED-Historial").style.display='none';
+            document.getElementById("MED-Bienvenida").style.display='none'; 
+            document.getElementById("IGNORARSECCION").style.display='none';
+        }
+
+    </script>
+
+    <script>
+        //--------------------------------------- REFERENCES ------------------------------//
+        var currentUser = null;
+        var dbcedula = null;
+        
+        //------------------------------------------WINDOWS LOAD---------------------------------------------//
+        getUsername();
+        dbcedula = currentUser.CEDULA;
+            localStorage.setItem('dbcedula', dbcedula);
+            console.log(dbcedula);
+        
+            window.onload = function(){
+            
+            getUsername();
+            
+            if(currentUser == null||currentUser == ''){
+                window.location = "index.html";
+            }
+            else{
+                if(currentUser.PERFIL == "usuario"){
+                    document.getElementById("IngNewUser").style.display='none';
+                    document.getElementById("Med-Users").style.display='none';
+                    
+                }else{
+                    document.getElementById("IngNewUser").style.display='block';
+                    document.getElementById("Med-Users").style.display='block';
+                    document.getElementById("Historial").style.display='none';
+                    document.getElementById("mediciones").style.display='none';                                   
+                }
+
+                if(currentUser.GENERO == "Masculino"){
+                    userlink.innerText = "Bienvenido "+ currentUser.NOMBRE;
+                }else{
+                    userlink.innerText = "Bienvenida "+ currentUser.NOMBRE;
+                }
+
+                signoutlink.href = "javascript:Signout()";
+            } 
+
+        }
+        
+        function getUsername(){
+            let keepLoggedIn = localStorage.getItem("keepLoggedIn");
+            if(keepLoggedIn == "yes"){
+                currentUser = JSON.parse(localStorage.getItem('USUARIO')); 
+            }
+            else{
+                currentUser = JSON.parse(sessionStorage.getItem('USUARIO'));
+            }
+        }
+
+        function Signout(){
+            sessionStorage.removeItem('USUARIO');
+            localStorage.removeItem('USUARIO');
+            localStorage.removeItem('dbcedula1');
+            localStorage.removeItem('dbcedula');
+            localStorage.removeItem('keepLoggedIn');
+            window.location = "index.html";
+        }
+
+        //---------------------------------------------FUNCTION ---------------------------------------------------------//
+
+
+    </script>
+
+    <!--FIREBASE SCRIPTS-->
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { collection, getDocs, getFirestore, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getDatabase, ref, child, onValue, get, set, update, remove } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        const firebaseConfig = {
+        apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        authDomain: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        projectId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        storageBucket: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        messagingSenderId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        appId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore();
+        const dbRT = getDatabase();
+       
+        //----------------------------- FUNCION CON FIRESTORE DATABASE-------------------------------------//
+        // ----------------------------------References---------------------------------------------------//
+        getUsername();
+        dbcedula = currentUser.CEDULA;
+        localStorage.setItem('dbcedula', dbcedula);
+        let dbcedula1 = localStorage.getItem('dbcedula');
+        console.log(dbcedula1);
+
+        let InBoxfc = document.getElementById("Inboxfc");
+        let CedBoxfc = document.getElementById("Cedboxfc");
+        let ApBoxfc = document.getElementById("Apboxfc");
+        let NomBoxfc = document.getElementById("Nomboxfc");
+        let CelBoxfc = document.getElementById("Celboxfc");
+        let TelBoxfc = document.getElementById("Telboxfc");
+        let BornBoxfc = document.getElementById("Bornboxfc");
+        let EdBoxfc = document.getElementById("Edboxfc");
+        let DomBoxfc = document.getElementById("Domboxfc");
+        let GenBoxfc = document.getElementById("Genboxfc");
+        let CorrBoxfc = document.getElementById("Corrboxfc");
+        let UserBoxfc = document.getElementById("Userboxfc");
+        let ContBoxfc = document.getElementById("Contboxfc");
+        let EnfBoxfc = document.getElementById("Enfboxfc");
+        let ObsBoxfc = document.getElementById("Obsboxfc");
+
+        let InBoxfc1 = document.getElementById("Inboxfc1");
+        let CedBoxfc1 = document.getElementById("Cedboxfc1");
+        let ApBoxfc1 = document.getElementById("Apboxfc1");
+        let NomBoxfc1 = document.getElementById("Nomboxfc1");
+        let CelBoxfc1 = document.getElementById("Celboxfc1");
+        let TelBoxfc1 = document.getElementById("Telboxfc1");
+        let BornBoxfc1 = document.getElementById("Bornboxfc1");
+        let EdBoxfc1 = document.getElementById("Edboxfc1");
+        let DomBoxfc1 = document.getElementById("Domboxfc1");
+        let GenBoxfc1 = document.getElementById("Genboxfc1");
+        let CorrBoxfc1 = document.getElementById("Corrboxfc1");
+        let UserBoxfc1 = document.getElementById("Userboxfc1");
+        let ContBoxfc1 = document.getElementById("Contboxfc1");
+        let EnfBoxfc1 = document.getElementById("Enfboxfc1");
+        let ObsBoxfc1 = document.getElementById("Obsboxfc1");
+        
+
+        let insBtnfc = document.getElementById("Insbtnfc");
+        let selBtnfc = document.getElementById("Selbtnfc");
+        let modBtnfc = document.getElementById("Modbtnfc");
+        let updBtnfc = document.getElementById("Updbtnfc");
+        //let delBtnfc = document.getElementById("Delbtnfc");
+
+        //---------------------------------- REGISTRO DE DATOS DE MEDICION ------------------------------------//
+        let TempBoxfc = document.getElementById("Tempboxfc");
+        let OxiBoxfc = document.getElementById("Oxiboxfc");
+        let PresBoxfc = document.getElementById("Presboxfc");
+        let PulsBoxfc = document.getElementById("Pulsboxfc");
+        let MedBtnfc = document.getElementById("Medbtnfc");
+        let NewMedBtnfc = document.getElementById("NewMedbtnfc");
+        
+        //---------------------------------- VALIDATION ------------------------------------------------------------//
+        function isEmptyOrSpaces(str){
+        return str === null || str.match(/^ *$/) !==null;
+        }
+        function Validation(){
+            let nameregex = /^[a-zA-Z\s]+$/;
+            //let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+            let userregex = /^[a-zA-Z0-9]{5,}$/;
+            let cedularegex = /^[0-9]+$/;
+
+            if(isEmptyOrSpaces(CedBoxfc.value) || isEmptyOrSpaces(NomBoxfc.value) || isEmptyOrSpaces(ApBoxfc.value) || isEmptyOrSpaces(CelBoxfc.value)|| isEmptyOrSpaces(EdBoxfc.value)|| isEmptyOrSpaces(DomBoxfc.value)|| isEmptyOrSpaces(CorrBoxfc.value)|| isEmptyOrSpaces(UserBoxfc.value)|| isEmptyOrSpaces(ContBoxfc.value)|| isEmptyOrSpaces(GenBoxfc.value)){
+                alert("No debes dejar ningún campo vacío");
+                return false;
+            }
+
+            if(!nameregex.test(NomBoxfc.value) || !nameregex.test(ApBoxfc.value)){
+                alert("¡El nombre solo debe contener letras!");
+                return false;
+            }
+
+            if(!cedularegex.test(CedBoxfc.value)){
+                alert("¡El número de cédula solo debe contener números!");
+                return false;
+            }
+
+            if(!cedularegex.test(EdBoxfc.value)){
+                alert("¡La edad solo debe contener números!");
+                return false;
+            }
+
+            if(!cedularegex.test(CelBoxfc.value)){
+                alert("¡El número de teléfono solo debe contener números");
+                return false;
+            }
+
+            // if(!emailregex.test(CorrBoxfc.value)){
+            //     alert("Ingresa un correo electrónico válido");
+            //     return false;
+            // }
+
+            if(!userregex.test(UserBoxfc.value)){
+                alert("-El nombre de usuario solo puede ser alfanumérico\n-El nombre de usuario debe tener al menos 5 caracteres\n-El nombre de usuario no puede contener espacios");
+                return false;
+            }
+            return true;
+        }
+        
+        //--------------------------------- ADDING DOCUMENT ----------------------------------------------//
+
+        async function AddDocument_AutoID(){
+
+            var ref = collection(db,dbcedula1); 
+            console.log(dbcedula1);
+            const docRef = await addDoc(
+                ref, {
+                    MEDICO: dbcedula1,
+                    FECHA_DE_INGRESO: InBoxfc.value,
+                    CEDULA: CedBoxfc.value,
+                    APELLIDO: ApBoxfc.value,
+                    NOMBRE: NomBoxfc.value,
+                    CELULAR: CelBoxfc.value,
+                    CONVENCIONAL: TelBoxfc.value,
+                    FECHA_DE_NACIMIENTO: BornBoxfc.value,
+                    EDAD: EdBoxfc.value,
+                    DOMICILIO: DomBoxfc.value,
+                    GENERO: GenBoxfc.value,
+                    CORREO: CorrBoxfc.value,
+                    USUARIO: UserBoxfc.value,
+                    CONTRASEÑA: ContBoxfc.value,
+                    ENFERMEDADES_PREEXISTENTES: EnfBoxfc.value,
+                    OBSERVACIONES: ObsBoxfc.value,
+                    PERFIL: "usuario",
+    
+                }
+            )
+            .then(()=>{
+                alert("data added successfully");
+            })
+            .catch((error)=>{
+                alert("Unsuccessfuful operation, error:"+error);
+            });
+            console.log("document id is "+ docRef.id);
+        }
+        
+        async function AddDocument_CustomID(){
+            if (!Validation()){
+                return;
+            };
+
+            var ref = doc(db,dbcedula1,UserBoxfc.value); 
+            await setDoc(
+                ref, {
+                    MEDICO: dbcedula1,
+                    FECHA_DE_INGRESO: InBoxfc.value,
+                    CEDULA: CedBoxfc.value,
+                    APELLIDO: ApBoxfc.value,
+                    NOMBRE: NomBoxfc.value,
+                    CELULAR: CelBoxfc.value,
+                    CONVENCIONAL: TelBoxfc.value,
+                    FECHA_DE_NACIMIENTO: BornBoxfc.value,
+                    EDAD: EdBoxfc.value,
+                    DOMICILIO: DomBoxfc.value,
+                    GENERO: GenBoxfc.value,
+                    CORREO: CorrBoxfc.value,
+                    USUARIO: UserBoxfc.value,
+                    CONTRASEÑA: ContBoxfc.value,
+                    ENFERMEDADES_PREEXISTENTES: EnfBoxfc.value,
+                    OBSERVACIONES: ObsBoxfc.value,
+                    PERFIL: "usuario",
+                }
+            )
+            .then(()=>{
+                alert("data added successfully");
+            })
+            .catch((error)=>{
+                alert("Unsuccessfuful operation, error:"+error);
+            });
+        }
+
+        //------------------------------ FUNCION MOSTRAR MEDICIONES PACIENTE (ADMIN)--------------------------------------//
+        
+        function MostrarMedicionesAdmin(){
+            getUsername();
+            console.log(currentUser.CEDULA);
+
+            if(currentUser.PERFIL == "Admin"){
+             
+                let userRTA = localStorage.getItem('rowAdmin');   
+                document.getElementById("UserNamePrint").innerHTML = userRTA;         
+                let starCountRefB = ref(dbRT,"UsersList/"+ userRTA + "/MEDICIONES");
+                    
+                onValue(starCountRefB, (snapshot) => {
+               
+                    let UserPulso1 = []; 
+                    UserPulso1 = ref(dbRT,"UsersList/"+ userRTA + "/MEDICIONES" + "/" + snapshot.val().Pulso);
+
+                    let turnAnglebpm = document.getElementById("Pulso_Fire").innerHTML = Math.round(snapshot.val().Pulso);
+                    let AngleBpm = Math.round(turnAnglebpm * 180 / 160);
+                    document.getElementById("Incbarrabpm").setAttribute("style", "transform: rotate(" + AngleBpm + "deg)");
+                                                
+                    let turnAnglespo2 = document.getElementById("Oxi_Fire").innerHTML = Math.round(snapshot.val().Oximetria);
+                    let AngleSpo2 = Math.round(turnAnglespo2 * 180 / 120);
+                    document.getElementById("Incbarraspo2").setAttribute("style", "transform: rotate(" + AngleSpo2 + "deg)");
+                });
+            } 
+        } 
+        
+        $(document).on('click', '.RealizarMedicionUsuario', function(e){
+            e.preventDefault();
+            MostrarMedicionesAdmin();
+            
+        } )
+        $(document).on('click', '.ListaUsuarios', function(e){
+            e.preventDefault();
+            MostrarMedicionesAdmin();
+        } )
+        $(document).on('click', '.AtrasUsuarios', function(e){
+            e.preventDefault();
+            MostrarMedicionesAdmin();
+        } )
+        
+        $(document).on('click', '#BtnGraficoOxi', function(e){
+            e.preventDefault();
+            document.getElementById("ValoresNormalesPrint").innerHTML = "- Oximetría: Mide la cantidad de oxígeno en la sangre.<br>- Valores normales: oscilan entre 95 y 100 %.<br>- Variaciones: Cuando un individuo tiene problemas respiratorios debidos a patologías pulmonares, cardíacas o neurológicas, este porcentaje desciende, con valores < 95%."; 
+            
+        } )
+        $(document).on('click', '#BtnGraficoPulso', function(e){
+            e.preventDefault();
+            document.getElementById("ValoresNormalesPrint").innerHTML = "- Pulso cardíaco: Es el número de latidos cardíacos por minuto.<br>- Valores normales: oscilan entre 60 y 85 bpm.<br>- Variaciones: taquicardia: > 90 bpm, y bradicardia: < 50 bpm."; 
+            
+        } )
+      
+        //------------------------------ FUNCION MOSTRAR MEDICIONES PACIENTE (USUARIO)--------------------------------------//
+        function MostrarMediciones(){
+            getUsername();
+            console.log(currentUser.PERFIL);
+            console.log(currentUser.USUARIO);
+            
+            if(currentUser.PERFIL == "usuario"){
+                let userRTU = currentUser.USUARIO;
+
+                let starCountRefU = ref(dbRT,'UsersList/'+ userRTU + '/MEDICIONES');
+
+                onValue(starCountRefU, (snapshot) => {
+                    OxiBoxfc.value = snapshot.val().Oximetria;
+                    PresBoxfc.value = snapshot.val().Presion;
+                    PulsBoxfc.value = snapshot.val().Pulso;
+                    TempBoxfc.value = snapshot.val().Temperatura;
+
+                    let turnAnglebpmU = document.getElementById("Pulso_FireU").innerHTML = Math.round(snapshot.val().Pulso);
+                    let AngleBpmU = Math.round(turnAnglebpmU * 180 / 160);
+                    document.getElementById("IncbarrabpmU").setAttribute("style", "transform: rotate(" + AngleBpmU + "deg)");
+                    
+                    let turnAnglespo2U = document.getElementById("Oxi_FireU").innerHTML = Math.round(snapshot.val().Oximetria);
+                    let AngleSpo2U = Math.round(turnAnglespo2U * 180 / 120);
+                    document.getElementById("Incbarraspo2U").setAttribute("style", "transform: rotate(" + AngleSpo2U + "deg)");                                       
+                });                                               
+            }
+        } 
+
+//-------------------------------------------- FUNCION MOSTRAR ESTADO DE CONEXION (ADMIN-MEDICO)--------------------//
+        
+        function EstadoConexionAdmin(){
+            getUsername();
+        
+            if(currentUser.PERFIL == "Admin"){
+
+                let userRTA = localStorage.getItem('rowAdmin');   
+                document.getElementById("UserNamePrint").innerHTML = userRTA;  
+
+                let StdAdmin = new Array();
+                
+                const starCountRefStatusAdmin = ref(dbRT,'UsersList/'+ userRTA + '/MEDICIONES');
+                                                
+                setInterval(()=>{
+
+                    onValue(starCountRefStatusAdmin, (snapshot) => { 
+
+                        update(ref(dbRT, 'UsersList/'+ userRTA + '/MEDICIONES'),{ 
+                            CONEXION: "0",                            
+                        })  
+
+                        StdAdmin.push(snapshot.val().CONEXION);
+                        var EAd=0;
+                        let AAd = (StdAdmin[StdAdmin.length-1]);                          
+                        let BAd = (StdAdmin[StdAdmin.length-2]);   
+                        let CAd = (StdAdmin[StdAdmin.length-3]);  
+                        let DAd = (StdAdmin[StdAdmin.length-4]);          
+                        
+                        console.log(AAd, BAd, CAd, DAd);
+
+                        if((AAd==0 | AAd==undefined) & (BAd==0 | BAd==undefined) & (AAd==0 | CAd==undefined) & (DAd==0 | DAd==undefined)){
+                            EAd=0;                        
+                        } else{
+                            EAd=1; 
+                        }
+                     
+                        if(EAd == 0){
+                            document.getElementById("IconConexionAdmin").setAttribute("style","color: #c2c2c2;");  
+                            document.getElementById("IconConexionAdminText").setAttribute("style","font-weight: normal;");
+                        } else{
+                            document.getElementById("IconConexionAdmin").setAttribute("style","color: rgb(30, 253, 0);");
+                            document.getElementById("IconConexionAdminText").setAttribute("style","font-weight: bold;");
+                        }
+                    });
+                },6000);      
+            }
+        }                       
+
+        $(document).on('click', '.RealizarMedicionUsuario', function(e){
+            e.preventDefault();
+            MostrarMedicionesAdmin();
+            //MostrarGuardar();
+            EstadoConexionAdmin();
+        } )        
+                
+        //-------------------------------------------- FUNCION MOSTRAR ESTADO DE CONEXION (PACIENTE)--------------------//
+        function EstadoConexion(){
+            getUsername();
+            console.log(currentUser.PERFIL);
+            console.log(currentUser.USUARIO);
+            
+            if(currentUser.PERFIL == "usuario"){
+
+                let userRT = currentUser.USUARIO;
+                let StdA = new Array();
+                
+                const starCountRefStatus = ref(dbRT,'UsersList/'+ userRT + '/MEDICIONES');
+                                                
+                setInterval(()=>{
+
+                    onValue(starCountRefStatus, (snapshot) => { 
+
+                        update(ref(dbRT, 'UsersList/'+ userRT + '/MEDICIONES'),{ 
+                            CONEXION: "0",                            
+                        })  
+
+                        StdA.push(snapshot.val().CONEXION);
+                        var E=0;
+                        let A = (StdA[StdA.length-1]);                          
+                        let B = (StdA[StdA.length-2]);   
+                        let C = (StdA[StdA.length-3]);  
+                        let D = (StdA[StdA.length-4]);          
+                        
+                        console.log(A, B, C, D);
+
+                        if((A==0 | A==undefined) & (B==0 | B==undefined) & (C==0 | C==undefined) & (D==0 | D==undefined)){
+                            E=0;                        
+                        } else{
+                            E=1; 
+                        }
+                     
+                        if(E == 0){
+                            document.getElementById("IconConexion").setAttribute("style","color: #c2c2c2;");  
+                            document.getElementById("IconConexionText").setAttribute("style","font-weight: normal;");
+                        } else{
+                            document.getElementById("IconConexion").setAttribute("style","color: rgb(30, 253, 0);");
+                            document.getElementById("IconConexionText").setAttribute("style","font-weight: bold;");
+                        }
+                    });
+                },6000);      
+            }
+        }                       
+
+        $(document).on('click', '.MedUser', function(e){
+            e.preventDefault();
+            MostrarMediciones();
+            //MostrarGuardar();
+            EstadoConexion();
+        } )
+
+        //-------------------------------------------- FUNCION GUARDAR MEDICION DE SIGNOS--------------------//
+        getUsername();
+        let dbuser = currentUser.USUARIO;
+            localStorage.setItem('dbuser', dbuser);
+        let dbmed = currentUser.MEDICO;
+            localStorage.setItem('dbmed', dbmed);
+
+        async function AddDocument_AutoID_MED(){
+            var refmed = collection(db,dbmed,dbuser,"MEDICIONES");  
+            const docRefmed = await addDoc(refmed, {
+                TEMPERATURA: TempBoxfc.value,
+                OXIMETRÍA: OxiBoxfc.value,
+                PRESIÓN: PresBoxfc.value,
+                PULSO: PulsBoxfc.value,
+                FECHA: FH
+            })
+            .then(()=>{
+                //alert("Datos de medición guardados");
+            })
+            .catch((error)=>{
+                alert("Unsuccessfuful operation, error:"+error);
+            });
+            console.log("document id is "+ docRef.id);
+        }
+        
+        function Temp(){
+            let date1 = new Date();
+            let hora= date1.toLocaleTimeString();
+            let day = date1.getDate().toString().length < 2? "0"+ date1.getDate() : date1.getDate();
+            let mes = date1.getMonth() + 1;
+            let mes1 = mes.toString().length < 2? "0"+mes : mes;
+            let year = date1.getFullYear();
+            let FHDB = (year+'-'+mes1+'-'+day+' '+hora);
+            localStorage.setItem('FHDB', FHDB);
+        }
+
+        async function AddDocument_CustomID_MED(){
+            Temp()
+            let FH = localStorage.getItem('FHDB');
+
+            var refmed = doc(db,dbmed,dbuser,"MEDICIONES",FH);  
+            await setDoc(refmed, {
+                TEMPERATURA: TempBoxfc.value,
+                OXIMETRÍA: OxiBoxfc.value,
+                PRESIÓN: PresBoxfc.value,
+                PULSO: PulsBoxfc.value,
+                FECHA: FH
+            })
+            .then(()=>{
+                alert("Datos de medición guardados");
+            })
+            .catch((error)=>{
+                alert("Unsuccessfuful operation, error:"+error);
+            });
+            localStorage.removeItem('dbcedula1');
+        }
+
+        function ResetearValoresUsuario(){
+            UpdateuserForm.reset();
+        }
+        MedBtnfc.addEventListener("click", AddDocument_CustomID_MED);
+        //NewMedBtnfc.addEventListener("click", ResetearVariables);
+
+        //----------------------------------------IMPRIMIR DATOS DE USUARIOS------------------------------------//
+        async function GetDocument(){
+            getUsername();
+
+            if(currentUser.PERFIL == "Admin"){
+                let usertable = localStorage.getItem('rowAdmin');
+                let ref = doc(db,dbcedula1,usertable); 
+                const docSnap = await getDoc(ref);
+                if(docSnap.exists()){
+                    document.getElementById("userprintp").innerHTML = docSnap.data().USUARIO;
+                    document.getElementById("ingprint").innerHTML = docSnap.data().FECHA_DE_INGRESO;
+                    document.getElementById("cedprint").innerHTML = docSnap.data().CEDULA;
+                    document.getElementById("apeprint").innerHTML = docSnap.data().APELLIDO;
+                    document.getElementById("nomprint").innerHTML = docSnap.data().NOMBRE;
+                    document.getElementById("celprint").innerHTML = docSnap.data().CELULAR;
+                    document.getElementById("telfprint").innerHTML = docSnap.data().CONVENCIONAL;
+                    document.getElementById("bornprint").innerHTML = docSnap.data().FECHA_DE_NACIMIENTO;
+                    document.getElementById("edadprint").innerHTML = docSnap.data().EDAD;
+                    document.getElementById("domprint").innerHTML = docSnap.data().DOMICILIO;
+                    document.getElementById("genprint").innerHTML = docSnap.data().GENERO;
+                    document.getElementById("emailprint").innerHTML = docSnap.data().CORREO;
+                    document.getElementById("passprint").innerHTML = docSnap.data().CONTRASEÑA;
+                    document.getElementById("enfprint").innerHTML = docSnap.data().ENFERMEDADES_PREEXISTENTES;
+                    document.getElementById("obsprint").innerHTML = docSnap.data().OBSERVACIONES;
+                }
+                else{
+                   alert("El usuario no existe");
+                }
+            }
+        }
+        //----------------------------------------------OBTENER PERFIL DE USUARIO------------------------------------//
+        async function GetDocument1(){
+            
+            getUsername();
+            console.log(currentUser.PERFIL);
+
+            if(currentUser.PERFIL == "Admin"){
+                GetDocument();
+                let usertable1 = localStorage.getItem('rowAdmin');
+                console.log(usertable1);
+                let ref1 = doc(db,dbcedula1,usertable1); 
+                const docSnap1 = await getDoc(ref1);
+                if(docSnap1.exists()){
+                    document.getElementById("userprint").innerHTML = docSnap1.data().USUARIO;
+                    InBoxfc1.value = docSnap1.data().FECHA_DE_INGRESO;
+                    CedBoxfc1.value = docSnap1.data().CEDULA;
+                    ApBoxfc1.value = docSnap1.data().APELLIDO;
+                    NomBoxfc1.value = docSnap1.data().NOMBRE;
+                    CelBoxfc1.value = docSnap1.data().CELULAR;
+                    TelBoxfc1.value = docSnap1.data().CONVENCIONAL;
+                    BornBoxfc1.value = docSnap1.data().FECHA_DE_NACIMIENTO;
+                    EdBoxfc1.value = docSnap1.data().EDAD;
+                    DomBoxfc1.value = docSnap1.data().DOMICILIO;
+                    GenBoxfc1.value = docSnap1.data().GENERO;
+                    CorrBoxfc1.value = docSnap1.data().CORREO;
+                    ContBoxfc1.value = docSnap1.data().CONTRASEÑA;
+                    EnfBoxfc1.value = docSnap1.data().ENFERMEDADES_PREEXISTENTES;
+                    ObsBoxfc1.value = docSnap1.data().OBSERVACIONES;
+                }
+                else{
+                   alert("El usuario no existe");
+                }
+            }
+        }
+        
+        //---------------------------------------- ACTUALIZAR DATOS DE USUARIOS ------------------------------//
+        async function UpdateFieldsInADocument(){
+            getUsername();
+            console.log(currentUser.PERFIL);
+            
+            if(currentUser.PERFIL == "Admin"){
+                let usertable = localStorage.getItem('rowAdmin');
+                var ref = doc(db,dbcedula1,usertable); 
+                await updateDoc(
+                    ref, {
+                        FECHA_DE_INGRESO: InBoxfc1.value,
+                        CEDULA: CedBoxfc1.value,
+                        APELLIDO: ApBoxfc1.value,
+                        NOMBRE: NomBoxfc1.value,
+                        CELULAR: CelBoxfc1.value,
+                        CONVENCIONAL: TelBoxfc1.value,
+                        FECHA_DE_NACIMIENTO: BornBoxfc1.value,
+                        EDAD: EdBoxfc1.value,
+                        DOMICILIO: DomBoxfc1.value,
+                        GENERO: GenBoxfc1.value,
+                        CORREO: CorrBoxfc1.value,
+                        CONTRASEÑA: ContBoxfc1.value,
+                        ENFERMEDADES_PREEXISTENTES: EnfBoxfc1.value,
+                        OBSERVACIONES: ObsBoxfc1.value
+                    }
+                )
+                .then(()=>{
+                    alert("data updated successfully");
+                    UpdateuserForm.reset();
+                    ImprimirPerfilUsuarioAdmin();
+                    //ImprimirPerfilUsuarioIniAdmin();
+                })
+                .catch((error)=>{
+                    alert("Unsuccessfuful operation, error:"+error);
+                });
+            }
+        }
+
+        //-----------------------------------------------ELIMINAR USUARIO------------------------------------//
+        async function DeleteDocument(){
+            getUsername();
+            console.log(currentUser.PERFIL);
+            
+            if(currentUser.PERFIL == "Admin"){
+                let usertable = localStorage.getItem('rowAdmin');
+                var ref = doc(db,dbcedula1,usertable); 
+                const docSnap = await getDoc(ref);
+                if(!docSnap.exists()){
+                    alert("Document does not exist");
+                    return;
+                }
+                await deleteDoc(ref)
+                .then(()=>{
+                    alert("data deleted successfully");
+                })
+                .catch((error)=>{
+                    alert("Unsuccessfuful operation, error:"+error);
+                });
+            }
+        }
+
+        //-----------------------------------------------Assing Events to Btns ------------------------------//
+        insBtnfc.addEventListener("click", AddDocument_CustomID);
+        //selBtnfc.addEventListener("click", ResetearValoresUsuario);
+        modBtnfc.addEventListener("click", MostrarPerfilAdmin);
+        updBtnfc.addEventListener("click", UpdateFieldsInADocument);
+        //delBtnfc.addEventListener("click", DeleteDocument);
+
+        //--------------------------------------------------------------------------------------------------------//
+        //--------------------------------------------------------------------------------------------------------//    
+        //--------------------------------------------------------------------------------------------------------//
+        //--------------------------------------------------------------------------------------------------------//
+        //--------------------------------------------------------------------------------------------------------//
+        //--------------------------------------------------------------------------------------------------------//
+        //----------------------------- FUNCION CON REAL TIME DATABASE-------------------------------------//
+
+        const submit = document.getElementById('Insbtnfc');
+
+        //--------------------------- REGISTRAR USUARIO A LA BASE DE DATOS FIREBASE -------------------------//
+        function RegisterUser(){
+            if (!Validation()){
+                return;
+            };
+            const dbRef = ref(dbRT);
+
+            get(child(dbRef, "UsersList/"+ UserBoxfc.value)).then((snapshot)=>{
+                if(snapshot.exists()){
+                    alert("¡El nombre de usuario ya existe, prueba con otro nombre!");
+                }
+                else{
+                    set(ref(dbRT, "UsersList/"+ UserBoxfc.value),{
+                        MEDICO: dbcedula1,
+                        FECHA_DE_INGRESO: InBoxfc.value,
+                        CEDULA: CedBoxfc.value,
+                        APELLIDO: ApBoxfc.value,
+                        NOMBRE: NomBoxfc.value,
+                        CELULAR: CelBoxfc.value, 
+                        CONVENCIONAL: TelBoxfc.value,
+                        FECHA_DE_NACIMIENTO: BornBoxfc.value,
+                        EDAD: EdBoxfc.value,
+                        DOMICILIO: DomBoxfc.value, 
+                        GENERO: GenBoxfc.value,
+                        CORREO: CorrBoxfc.value, 
+                        USUARIO: UserBoxfc.value, 
+                        CONTRASEÑA: ContBoxfc.value,
+                        PERFIL: 'usuario'
+                    })
+                    .then(()=>{
+                        alert("Usuario añadido con éxito");
+                        // location.href="login.html";
+                    })
+                    .catch((error)=>{
+                        alert("error"+ error);
+                    })
+                }
+            });
+        }     
+
+        //-------------------------------------- ACTUALIZACION DATOS DE USUARIO (RTDB)---------------------------------//
+        function UpdateData(){
+            getUsername();
+            console.log(currentUser.PERFIL);
+            
+            if(currentUser.PERFIL == "Admin"){
+                let usertableRT = localStorage.getItem('rowAdmin');
+                update(ref(dbRT, "UsersList/"+ usertableRT),{
+                    FECHA_DE_INGRESO: InBoxfc1.value,
+                    CEDULA: CedBoxfc1.value,
+                    APELLIDO: ApBoxfc1.value,
+                    NOMBRE: NomBoxfc1.value,
+                    CELULAR: CelBoxfc1.value, 
+                    CONVENCIONAL: TelBoxfc1.value,
+                    FECHA_DE_NACIMIENTO: BornBoxfc1.value,
+                    EDAD: EdBoxfc1.value,
+                    DOMICILIO: DomBoxfc1.value, 
+                    GENERO: GenBoxfc1.value,
+                    CORREO: CorrBoxfc1.value,  
+                    CONTRASEÑA: ContBoxfc1.value
+                })
+                .then(()=>{
+                    alert("data updated successfully");
+                    UpdateuserForm.reset();
+                    ImprimirPerfilUsuarioAdmin();
+                    //ImprimirPerfilUsuarioIniAdmin()
+                })
+                .catch((error)=>{
+                    alert("unsuccessful, error"+ error);
+                });
+            }
+        }
+
+        //-----------------------------------------------ELIMINAR USUARIO (RTDB) -----------------------------------//
+        function DeleteData(){
+            getUsername();
+            console.log(currentUser.PERFIL);
+            
+            if(currentUser.PERFIL == "Admin"){
+                let usertableRT = localStorage.getItem('rowAdmin');
+                remove(ref(dbRT, "UsersList/"+ usertableRT))
+                .then(()=>{
+                    alert("data removed successfully");
+                })
+                .catch((error)=>{
+                    alert("unsuccessful, error"+ error);
+                });
+            }
+        }
+
+        //---------------------------------ASSIGN EVENTS TO BTNS -------------------------------------------------//
+        submit.addEventListener('click', RegisterUser);
+        updBtnfc.addEventListener("click", UpdateData);
+        
+        //---------------------------------------------------------------------------------------------------------//
+        //----------------------------------------MOSTRAR TABLA DE USUARIOS---------------------------------------//
+        //---------------------------------------------FILLING THE TABLE ----------------------------------------//
+    
+        var tbodyUser = document.getElementById('tbody3');
+        GetDocument1();
+        function AddItemToTableUser(usuario, cedula, nombre, apellido, accion){
+            
+            let trow = document.createElement("tr");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
+            let td3 = document.createElement("td");
+            let td4 = document.createElement("td");
+            let td5 = document.createElement("td");
+
+            td1.innerHTML= usuario;
+            td2.innerHTML= cedula;
+            td3.innerHTML= nombre;
+            td4.innerHTML= apellido;
+            td5.innerHTML= accion;
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+
+            tbodyUser.appendChild(trow);
+            
+        }
+
+        function AddAllItemsToTableUser(TheUsers){
+            getUsername();
+            if(currentUser.PERFIL == "Admin"){
+                GetDocument();
+                tbodyUser.innerHTML="";
+                TheUsers.forEach(element =>{
+                    AddItemToTableUser(element.USUARIO, element.CEDULA, element.NOMBRE, element.APELLIDO, /*html*/`<button class="btn bg-danger text-light btn-perfil" id="VerPerfil" onclick="ImprimirPerfilUsuarioIniAdmin()">VER PERFIL</button>&nbsp`);
+                });
+            }
+        }
+       
+        $(document).on('click', '.btn-perfil', function(e){
+            e.preventDefault();
+            var rowAdmin = $(this).parent().parent().children().first().text();
+            localStorage.setItem('rowAdmin', rowAdmin);
+            console.log(rowAdmin);
+            GetDocument();
+            GetDocument1();
+            MostrarMedicionesAdmin();
+            //ImprimirPerfilUsuarioAdmin();
+            GetDocumentAdmin();
+            //SelectData();
+        } )
+               
+        //------------------------------------------- GETTING ALL DATA ------------------------------------//
+        getUsername();
+        dbcedula = currentUser.CEDULA;
+        localStorage.setItem('dbcedula', dbcedula);
+        let dbcedula3 = localStorage.getItem('dbcedula');
+
+        async function GetAllDataOnceUser(){
+            const querySnapshotUser = await getDocs(collection(db,dbcedula3))
+            var usersMedUser = [];
+            querySnapshotUser.forEach(doc => {
+                usersMedUser.push(doc.data());
+            });
+            AddAllItemsToTableUser(usersMedUser);
+        }
+
+        async function GetAllDataOnceRealtimeUser(){
+            const dbRefUser = query(collection(db,dbcedula3), orderBy("USUARIO", "asc"));
+            onSnapshot(dbRefUser,(querySnapshotUser)=>{
+                var usersMedUser = [];
+                querySnapshotUser.forEach(doc => {
+                    usersMedUser.push(doc.data());
+                });
+                AddAllItemsToTableUser(usersMedUser);
+            })
+        }
+        $(document).ready(()=>{
+            GetAllDataOnceRealtimeUser();
+        })
+
+        //------------------------------------MOSTRAR TABLA CON DATOS (ADMIN)-------------------------------------//
+    
+        var tbodyAdmin = document.getElementById('tbody2');
+
+        function AddItemToTableAdmin(fecha, temperatura, oximetria, presion, pulso){
+            let trow = document.createElement("tr");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
+            let td3 = document.createElement("td");
+            let td4 = document.createElement("td");
+            let td5 = document.createElement("td");
+            let td6 = document.createElement("td");
+
+            td1.innerHTML= fecha;
+            td2.innerHTML= temperatura;
+            td3.innerHTML= oximetria;
+            td4.innerHTML= presion;
+            td5.innerHTML= pulso;
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+
+            tbodyAdmin.appendChild(trow);
+        }
+
+        function AddAllItemsToTableAdmin(TheUsers){
+            tbodyAdmin.innerHTML="";
+            TheUsers.forEach(element =>{
+                AddItemToTableAdmin(element.FECHA, element.TEMPERATURA, element.OXIMETRÍA, element.PRESIÓN, element.PULSO);
+            });
+        }
+               
+        //--------------------------------------- OBTENER HISTORIAL DEL USUARIO EN LA TABLA ------------------------------------//
+ 
+        async function GetDocumentAdmin(){
+            getUsername();
+            console.log(currentUser.PERFIL);
+            
+            if(currentUser.PERFIL == "Admin"){
+                let usertable = localStorage.getItem('rowAdmin');
+                
+                dbcedula = currentUser.CEDULA;
+                localStorage.setItem('dbcedula', dbcedula);
+                let dbcedula2 = localStorage.getItem('dbcedula');
+                console.log(dbcedula2);
+
+                var refAdmin = doc(db,dbcedula2,usertable); 
+                const docSnap = await getDoc(refAdmin);
+            
+                if(docSnap.exists()){
+
+                    async function GetAllDataOnceAdmin(){
+                        const querySnapshotAdmin = await getDocs(collection(db,dbcedula2,usertable,"MEDICIONES"))
+                        var usersMedAdmin = [];
+                        querySnapshotAdmin.forEach(doc => {
+                            usersMedAdmin.push(doc.data());
+                        });
+                        AddAllItemsToTableAdmin(usersMedAdmin);
+                    }
+
+                    async function GetAllDataOnceRealtimeAdmin(){
+                        const dbRefAdmin = query(collection(db,dbcedula2,usertable,"MEDICIONES"), orderBy("FECHA", "asc"));
+                        onSnapshot(dbRefAdmin,(querySnapshotAdmin)=>{
+                            var usersMedAdmin = [];
+                            querySnapshotAdmin.forEach(doc => {
+                                usersMedAdmin.push(doc.data());
+                            });
+                            AddAllItemsToTableAdmin(usersMedAdmin);
+                            console.log(usersMedAdmin.length);
+                        
+                            var ValoresFecha = usersMedAdmin.map(function(tablafecha){
+                                return tablafecha.FECHA
+                            })                
+                            var ValoresOxi = usersMedAdmin.map(function(tablaoxi){
+                                return tablaoxi.OXIMETRÍA
+                            })
+                            var ValoresPulso = usersMedAdmin.map(function(tablapulso){
+                                return tablapulso.PULSO
+                            })
+                            var dataOxi = [{
+                                x: ValoresFecha,
+                                y: ValoresOxi,
+                                mode: 'lines+markers',
+                                marker: {
+                                    color: 'green',
+                                    size: 6
+                                },
+                                line:{
+                                    color: 'green',
+                                    width: 2
+                                },                                
+                            }];
+                            var config = {responsive: true}
+
+                            var layoutOxi = {
+                                title: 'Nivel de oxígeno en la sangre (%)',                                       
+                                font: {
+                                    family: 'Roboto, sans-serif',
+                                    size: 10
+                                },
+                                xaxis: {
+                                    title: 'FECHA',
+                                    tickangle: -45
+                                },
+                                yaxis: {
+                                    title: 'Sp02 (%)'
+                                },
+                                bargap: 0.05,
+                                barmode: "stack",
+                                paper_bgcolor:"#e2e2e259",
+                                plot_bgcolor:"#e2e2e259",
+                                showlegend: false,
+                                margin:{
+                                    l: 30,
+                                    r: 30,
+                                    b: 60,
+                                    t: 40,
+                                    pad: 1,
+                                }
+                            };
+                            Plotly.newPlot("GraficoOxi", dataOxi, layoutOxi, config);
+
+                            var dataPulso = [{
+                                x: ValoresFecha,
+                                y: ValoresPulso,
+                                mode: 'lines+markers',
+                                marker: {
+                                    color: 'red',
+                                    size: 6,
+                                    opacity: 0.6
+                                },
+                                line:{
+                                    color: 'red',
+                                    width: 2
+                                },
+                            }];
+                            var layoutPulso = {
+                                title: 'PULSO CARDÍACO (Bpm)',                                    
+                                font: {
+                                    family: 'Roboto, sans-serif',
+                                    color:"#6b6f8a",
+                                    size: 10
+                                },
+                                xaxis: {
+                                    title: 'FECHA',
+                                    tickangle: -45
+                                },
+                                yaxis: {
+                                    title: 'PULSO (Bpm)'
+                                },
+                                bargap: 0.05,
+                                barmode: "stack",
+                                paper_bgcolor:"#e2e2e259",
+                                plot_bgcolor:"#e2e2e259",
+                                showlegend: false,
+                                margin:{
+                                    l: 30,
+                                    r: 30,
+                                    b: 60,
+                                    t: 40,
+                                    pad: 1,
+                                }
+                            };
+                            Plotly.newPlot("GraficoPulso", dataPulso, layoutPulso, config);
+                        })
+                    }
+                    $(document).ready(()=>{
+                    GetAllDataOnceRealtimeAdmin();
+                    })  
+                }
+                else{
+                    alert("No such Document");
+                }
+            }
+                
+        }    
+
+        //------------------------------------MOSTRAR TABLA CON DATOS (USUARIOS PACIENTES)-------------------------------------//
+        //---------------------------------------------FILLING THE TABLE ----------------------------------------//
+    
+        var tbody = document.getElementById('tbody1');
+
+        function AddItemToTable(fecha, temperatura, oximetria, presion, pulso){
+            let trow = document.createElement("tr");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
+            let td3 = document.createElement("td");
+            let td4 = document.createElement("td");
+            let td5 = document.createElement("td");
+            let td6 = document.createElement("td");
+
+            td1.innerHTML= fecha;
+            td2.innerHTML= temperatura;
+            td3.innerHTML= oximetria;
+            td4.innerHTML= presion;
+            td5.innerHTML= pulso;
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+
+            tbody.appendChild(trow);
+        }
+
+        function AddAllItemsToTable(TheUsers){
+            tbody.innerHTML="";
+            TheUsers.forEach(element =>{
+                AddItemToTable(element.FECHA, element.TEMPERATURA, element.OXIMETRÍA, element.PRESIÓN, element.PULSO);
+            });
+        }
+               
+        //------------------------------------------- GETTING ALL DATA ------------------------------------//
+        console.log(dbmed);
+        async function GetAllDataOnce(){
+            const querySnapshot = await getDocs(collection(db,dbmed,dbuser,"MEDICIONES"))
+            var usersMed = [];
+            querySnapshot.forEach(doc => {
+                usersMed.push(doc.data());
+            });
+            AddAllItemsToTable(usersMed);
+        }
+
+        async function GetAllDataOnceRealtime(){
+            getUsername();
+            if(currentUser.PERFIL == "usuario"){
+                const dbRef = query(collection(db,dbmed,dbuser,"MEDICIONES"), orderBy("FECHA", "asc"));
+                onSnapshot(dbRef,(querySnapshot)=>{
+                    var usersMed = [];
+                    querySnapshot.forEach(doc => {
+                        usersMed.push(doc.data());
+                    });
+                    AddAllItemsToTable(usersMed);
+                })
+            }
+        }
+        $(document).ready(()=>{
+            GetAllDataOnceRealtime();
+        })
+
+      
+    </script>
+
+</body>
+
+</html>
